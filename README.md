@@ -1,80 +1,282 @@
-Phase 1 : Le cœur du jeu (Priorité haute)
-Cette phase se concentre sur l'essentiel pour avoir un jeu d'échecs fonctionnel avec notation universelle.
+# 🏁 AX Chess - Jeu d'Échecs Innovant
 
-⚠️ **Important** : Le projet utilise la **notation algébrique anglaise** (K, Q, R, B, N) selon le standard universel.
+![AX Chess Logo](https://via.placeholder.com/400x200/4F46E5/FFFFFF?text=AX+CHESS)
 
-1. Moteur de jeu d'échecs
-Logique de jeu : Développer un moteur capable de gérer toutes les règles des échecs classiques :
+**AX Chess** est un jeu d'échecs en ligne moderne avec des **pouvoirs spéciaux uniques**, développé avec React et Node.js. Découvrez une nouvelle dimension stratégique avec la téléportation, l'invisibilité et l'échange de pièces !
 
-Mouvement des pièces.
+## ✨ Fonctionnalités
 
-Capture des pièces.
+### 🎮 Jeu d'Échecs Complet
+- ♟️ **Toutes les règles classiques** : roque, en passant, promotion, échec et mat
+- 🌍 **Notation algébrique anglaise** universelle (K, Q, R, B, N, P)
+- ⏱️ **Contrôles de temps** personnalisables (bullet, blitz, rapid, classic)
+- 📊 **Système ELO** avec classements
 
-Roque (grand et petit).
+### ⚡ Pouvoirs Spéciaux Innovants
+- 🌀 **Téléportation** : Déplacez une pièce instantanément
+- 👻 **Invisibilité** : Rendez une pièce temporairement invisible
+- 🔄 **Échange** : Permutez deux pièces sur l'échiquier
 
-En passant.
+### 🌐 Multijoueur Temps Réel
+- 🚀 **Socket.IO** pour une expérience fluide
+- 👥 **Matchmaking intelligent** basé sur l'ELO
+- 💬 **Chat en temps réel** pendant les parties
+- 👁️ **Mode spectateur** pour regarder les parties
 
-Promotion des pions.
+### 🎨 Personnalisation Avancée
+- 🎨 **Thèmes d'échiquier** multiples
+- ♛ **Sets de pièces** personnalisés
+- 🌈 **Interface moderne** et responsive
+- 🔧 **Préférences utilisateur** complètes
 
-Échec et mat.
+### 📈 Progression et Statistiques
+- 🏆 **Système de niveaux** et expérience
+- 💰 **Monnaie virtuelle** pour débloquer du contenu
+- 📊 **Statistiques détaillées** de performance
+- 🎖️ **Achievements** et défis
 
-Partie nulle (pat, répétition de coups, règle des 50 coups, matériel insuffisant).
+## 🏗️ Architecture Technique
 
-Validation des coups : Le moteur doit pouvoir vérifier si un coup est légal ou non.
+### Backend (Node.js)
+```
+backend/
+├── 🚀 server.js              # Serveur principal Express + Socket.IO
+├── 🔐 middleware/auth.js      # Authentification JWT
+├── 🗄️ models/                # Modèles MongoDB (User, Game)
+├── 🛠️ engine/                # Moteur d'échecs complet
+│   ├── board/                 # Classes Board et Pieces
+│   ├── moves/                 # Validation des mouvements
+│   └── Game.js               # Logique de partie
+├── 🌐 api/                   # Routes API REST
+│   ├── auth/                 # Authentification
+│   ├── game/                 # Gestion des parties
+│   └── users/                # Profils utilisateurs
+└── 🔌 socket/               # Gestionnaire WebSocket
+```
 
-2. Interface utilisateur et expérience (UI/UX)
-Échiquier interactif : Créer une interface visuelle de l'échiquier où les joueurs peuvent déplacer les pièces en les faisant glisser ou en cliquant.
+### Frontend (React + TypeScript)
+```
+frontend/
+├── 📱 src/
+│   ├── 🧩 components/        # Composants React
+│   ├── 📄 pages/            # Pages de l'application
+│   ├── 🎮 hooks/            # Hooks personnalisés
+│   ├── 🔧 services/         # Services API
+│   ├── 🎨 styles/           # Styles CSS/SCSS
+│   └── 🔧 utils/            # Utilitaires
+└── 📦 public/               # Assets statiques
+```
 
-Historique des coups : Afficher la liste des coups joués pendant la partie.
+### Base de Données (MongoDB)
+- 👤 **Users** : Profils, statistiques, préférences
+- 🎮 **Games** : Parties, coups, résultats
+- 📊 **Ratings** : Historique ELO
+- 🏆 **Achievements** : Succès et défis
 
-Gestion des états de jeu : Afficher clairement si un joueur est en échec, s'il y a échec et mat, pat, etc.
+## 🚀 Installation et Démarrage
 
-3. Fonctionnalités multijoueur
-Connexion en temps réel : Utiliser Node.js avec Socket.IO pour permettre à deux joueurs de se connecter et de jouer en direct.
+### Prérequis
+- Node.js 18+ 
+- MongoDB 5+
+- npm ou yarn
 
-Gestion des salons de jeu : Créer un système pour que les joueurs puissent créer ou rejoindre une partie.
+### 1. Installation des dépendances
+```bash
+# Installer toutes les dépendances
+npm run install-deps
 
-Synchronisation des coups : Assurer que les coups joués par un joueur sont instantanément visibles par l'autre.
+# Ou manuellement :
+npm install
+cd backend && npm install
+cd ../frontend && npm install
+```
 
-Phase 2 : Enrichissement et personnalisation (Priorité moyenne)
-Une fois le jeu de base stable, vous pouvez ajouter ces fonctionnalités pour le rendre plus attrayant.
+### 2. Configuration
+```bash
+# Copier le fichier d'environnement
+cp backend/.env.example backend/.env
 
-1. Pouvoirs spéciaux
-Implémentation d'un système de capacités : Chaque joueur peut se voir attribuer aléatoirement (ou choisir) un pouvoir unique avant la partie.
+# Configurer les variables :
+# - MONGODB_URI
+# - JWT_SECRET
+# - JWT_REFRESH_SECRET
+```
 
-Liste des capacités à implémenter :
+### 3. Démarrage en développement
+```bash
+# Démarrer backend + frontend simultanément
+npm run dev
 
-Téléportation : Permet de déplacer une tour ou un cavalier à un endroit valide sur l'échiquier une fois par partie.
+# Ou séparément :
+npm run server  # Backend sur :5000
+npm run client  # Frontend sur :3000
+```
 
-Invisibilité : Rend un pion invisible pour un tour, le protégeant de toutes les captures.
+## 🎯 Utilisation
 
-Échange : Échange la position de deux de ses pièces.
+### Créer un Compte
+1. 📝 Inscription avec email/mot de passe
+2. ✅ Authentification JWT sécurisée
+3. 🎨 Personnalisation du profil
 
-Interface des capacités : Ajouter un bouton ou une icône pour activer le pouvoir, qui devient grisé après utilisation.
+### Jouer une Partie
+1. 🎮 **Créer une partie** ou rejoindre le **matchmaking**
+2. ⚡ **Utiliser vos pouvoirs** stratégiquement (2 par partie)
+3. 🏆 **Gagner des points ELO** et de l'expérience
 
-2. Système de progression et de classement
-Base de données des joueurs : Gérer les comptes utilisateurs (identifiants, mots de passe).
+### Fonctionnalités Avancées
+- 📊 Consulter vos **statistiques** détaillées
+- 🏅 Suivre votre **progression** dans les classements
+- 💬 **Chatter** avec vos adversaires
+- 📁 **Exporter** vos parties en PGN
 
-Expérience et niveaux : Développer un système d'expérience où chaque partie jouée et gagnée rapporte des points, faisant monter les joueurs de niveau.
+## 🛠️ Technologies Utilisées
 
-Classement ELO : Mettre en place un système de classement pour que les joueurs puissent suivre leur progression et se mesurer à d'autres.
+### Backend
+- **Node.js** + Express.js
+- **Socket.IO** (WebSocket temps réel)
+- **MongoDB** + Mongoose
+- **JWT** (authentification)
+- **bcrypt** (hachage mots de passe)
 
-3. Personnalisation
-Magasin en jeu : Permettre aux joueurs de dépenser leur expérience pour débloquer de nouveaux designs de pièces et de plateaux.
+### Frontend
+- **React 18** + TypeScript
+- **Socket.IO Client**
+- **Axios** (API calls)
+- **CSS Modules** / **Styled Components**
 
-Stockage des préférences : Sauvegarder les personnalisations des joueurs pour qu'elles soient conservées entre les parties.
+### DevOps
+- **Heroku** (backend)
+- **Vercel** (frontend)
+- **MongoDB Atlas** (base de données)
 
-Phase 3 : Variantes de jeu et événements (Priorité basse)
-Ces ajouts peuvent être développés une fois que le jeu est bien établi et que la communauté de joueurs commence à grandir.
+## 🎮 Règles des Pouvoirs Spéciaux
 
-1. Modes de jeu alternatifs
-Échecs 960 (Fischer) : Modifier la position de départ des pièces de manière aléatoire.
+### 🌀 Téléportation
+- Déplace instantanément une pièce vers n'importe quelle case libre
+- Ne peut pas capturer directement
+- Utilisable une fois par partie
 
-Échecs atomiques : Coder la logique d'explosion des pièces adjacentes.
+### 👻 Invisibilité  
+- Rend une pièce invisible à l'adversaire pendant 3 tours
+- La pièce peut toujours bouger et capturer
+- L'adversaire ne voit pas sa position exacte
 
-Échecs de la Horde : Créer une variante avec un joueur contre une armée de pions.
+### 🔄 Échange
+- Permute la position de deux pièces alliées
+- Conserve les propriétés de chaque pièce
+- Stratégique pour sortir d'une situation difficile
 
-2. Événements aléatoires
-Météo et brouillard de guerre : Implémenter un système qui rend certaines cases invisibles ou réduit la visibilité pendant quelques tours.
+## 🏆 Système de Progression
 
-Cartes de l'Échiquier : À intervalles réguliers (par exemple, tous les 10 tours), tirer une carte avec un effet prédéfini (ex : un pion est déplacé d'une case aléatoire).
+### Niveaux et Expérience
+- **+10 XP** par partie jouée
+- **+50 XP** par victoire
+- **+25 XP** par nulle
+- **+100 XP** par achievement débloqué
+
+### Monnaie Virtuelle
+- **Coins** gagnés en jouant
+- Débloquer des **thèmes** et **sets de pièces**
+- Acheter des **boosts** temporaires
+
+## 📊 API Documentation
+
+### Authentification
+```http
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/refresh
+GET  /api/auth/me
+```
+
+### Parties
+```http
+POST /api/game/create
+POST /api/game/join/:gameId
+POST /api/game/:gameId/move
+GET  /api/game/:gameId
+```
+
+### Utilisateurs
+```http
+GET  /api/users/leaderboard
+GET  /api/users/:userId/stats
+GET  /api/users/search
+```
+
+## 🧪 Tests
+
+```bash
+# Tests backend
+cd backend && npm test
+
+# Tests frontend  
+cd frontend && npm test
+
+# Tests complets
+npm test
+```
+
+## 🚀 Déploiement
+
+### Backend (Heroku)
+```bash
+heroku create ax-chess-api
+heroku config:set NODE_ENV=production
+heroku config:set MONGODB_URI=...
+git push heroku main
+```
+
+### Frontend (Vercel)
+```bash
+vercel --prod
+```
+
+## 🤝 Contribution
+
+1. 🍴 Fork le projet
+2. 🌿 Créer une branche feature (`git checkout -b feature/amazing-feature`)
+3. 💾 Commit vos changements (`git commit -m 'Add amazing feature'`)
+4. 📤 Push vers la branche (`git push origin feature/amazing-feature`)
+5. 🔄 Ouvrir une Pull Request
+
+## 📄 Licence
+
+Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+## 👥 Équipe
+
+- **Développement** : Équipe AX Chess
+- **Design** : Interface moderne et intuitive
+- **Game Design** : Pouvoirs spéciaux innovants
+
+## 🌟 Roadmap
+
+### Phase 1 ✅ (Actuel)
+- [x] Moteur d'échecs complet
+- [x] Authentification JWT
+- [x] Multijoueur temps réel
+- [x] Interface React moderne
+
+### Phase 2 🚧 (En cours)
+- [ ] Pouvoirs spéciaux complets
+- [ ] Système de tournois
+- [ ] Mode entraînement IA
+- [ ] Application mobile
+
+### Phase 3 🔮 (Futur)
+- [ ] Réalité augmentée
+- [ ] Streaming intégré
+- [ ] Compétitions esport
+- [ ] Marketplace NFT
+
+---
+
+<div align="center">
+
+**🏁 AX Chess - Réinventez les Échecs ! 🏁**
+
+[🌐 Site Web](https://ax-chess.vercel.app) • [📱 App Mobile](https://github.com/ax-chess/mobile) • [💬 Discord](https://discord.gg/ax-chess)
+
+</div>

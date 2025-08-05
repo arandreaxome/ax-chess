@@ -1,0 +1,20 @@
+{
+  "name": "ax-chess",
+  "version": "1.0.0",
+  "description": "Jeu d'échecs en ligne avec pouvoirs spéciaux",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "install-deps": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "test": "cd backend && npm test && cd ../frontend && npm test"
+  },
+  "keywords": ["chess", "game", "multiplayer", "react", "nodejs"],
+  "author": "AX Chess Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
