@@ -242,7 +242,8 @@ const GameSchema = new mongoose.Schema({
   roomId: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    index: true
   },
   
   isRanked: {
@@ -296,7 +297,7 @@ const GameSchema = new mongoose.Schema({
 });
 
 // Index pour les performances
-GameSchema.index({ roomId: 1 });
+// roomId index is already defined in schema with unique: true
 GameSchema.index({ 'players.white.user': 1, 'players.black.user': 1 });
 GameSchema.index({ status: 1, createdAt: -1 });
 GameSchema.index({ isRanked: 1, result: 1 });
