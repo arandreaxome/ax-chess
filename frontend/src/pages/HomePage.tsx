@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import apiService from '../services/api';
+import { ApiResponse, CreateGameResponse } from '../types/auth';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {
@@ -13,7 +14,7 @@ const HomePage: React.FC = () => {
   const handleCreateGame = async () => {
     setIsCreatingGame(true);
     try {
-      const response = await apiService.post('/game/create', {
+      const response: ApiResponse<CreateGameResponse> = await apiService.post('/game/create', {
         timeControl: 900, // 15 minutes
         increment: 10,
         isRanked: true,

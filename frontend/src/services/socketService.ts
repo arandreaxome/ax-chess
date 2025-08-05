@@ -65,7 +65,7 @@ class SocketService {
       this.reconnectAttempts = 0;
     });
 
-    this.socket.on('disconnect', (reason) => {
+    this.socket.on('disconnect', (reason: string) => {
       console.log('🔌 Déconnecté du serveur Socket.IO:', reason);
       this.isConnected = false;
       
@@ -75,7 +75,7 @@ class SocketService {
       }
     });
 
-    this.socket.on('connect_error', (error) => {
+    this.socket.on('connect_error', (error: Error) => {
       console.error('❌ Erreur de connexion Socket.IO:', error);
       this.isConnected = false;
       this.reconnect();

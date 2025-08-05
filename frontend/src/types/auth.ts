@@ -101,3 +101,8 @@ export interface RegisterResponse {
   tokens: AuthTokens;
   message: string;
 }
+
+export interface CreateGameResponse {
+  gameId: string;
+  message?: string;
+}
