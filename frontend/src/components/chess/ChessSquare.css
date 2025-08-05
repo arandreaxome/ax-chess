@@ -1,0 +1,121 @@
+/* Styles pour les cases de l'échiquier */
+.chess-square {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Couleurs des cases */
+.chess-square--light {
+  background-color: #f0d9b5;
+}
+
+.chess-square--dark {
+  background-color: #b58863;
+}
+
+.chess-square:hover {
+  filter: brightness(1.1);
+}
+
+/* États de highlighting */
+.chess-square--selected {
+  background-color: #f7dc6f !important;
+  box-shadow: inset 0 0 0 3px #f4d03f;
+}
+
+.chess-square--possible {
+  position: relative;
+}
+
+.chess-square--check {
+  background-color: #e74c3c !important;
+  animation: checkPulse 1s ease-in-out infinite alternate;
+}
+
+.chess-square--lastMove {
+  background-color: #85c1e9 !important;
+}
+
+.chess-square--capture {
+  position: relative;
+}
+
+/* Indicateurs visuels pour les highlights */
+.square-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.square-indicator--possible {
+  width: 30%;
+  height: 30%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.square-indicator--selected {
+  width: 100%;
+  height: 100%;
+  border: 3px solid #f4d03f;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.square-indicator--check {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(231, 76, 60, 0.7);
+  border-radius: 4px;
+}
+
+.square-indicator--last-move {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(133, 193, 233, 0.5);
+  border-radius: 4px;
+}
+
+.square-indicator--capture {
+  width: 80%;
+  height: 80%;
+  border: 3px solid rgba(231, 76, 60, 0.8);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* Animation pour l'échec */
+@keyframes checkPulse {
+  0% {
+    background-color: #e74c3c;
+  }
+  100% {
+    background-color: #c0392b;
+  }
+}
+
+/* Effet hover subtil */
+.chess-square:not(.chess-square--selected):not(.chess-square--check):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive - ajuster la taille des indicateurs sur mobile */
+@media (max-width: 768px) {
+  .square-indicator--possible {
+    width: 25%;
+    height: 25%;
+  }
+}
+
+@media (max-width: 480px) {
+  .square-indicator--possible {
+    width: 20%;
+    height: 20%;
+  }
+}

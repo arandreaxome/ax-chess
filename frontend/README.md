@@ -1,46 +1,161 @@
-# Getting Started with Create React App
+# AX Chess Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interface utilisateur React pour AX Chess - Le jeu d'échecs réinventé avec des pouvoirs spéciaux.
 
-## Available Scripts
+## 🚀 Technologies
 
-In the project directory, you can run:
+- **React 19** avec TypeScript
+- **Socket.IO Client** pour le temps réel
+- **Axios** pour les appels API
+- **React Router** pour la navigation
+- **CSS Modules** pour les styles
 
-### `npm start`
+## 📦 Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+# Installer les dépendances
+npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Démarrer en mode développement
+npm start
 
-### `npm test`
+# Construire pour la production
+npm run build
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Lancer les tests
+npm test
+```
 
-### `npm run build`
+## 🏗️ Structure du projet
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+├── components/          # Composants React réutilisables
+│   ├── auth/           # Composants d'authentification
+│   ├── chess/          # Composants de l'échiquier
+│   ├── game/           # Composants de jeu
+│   ├── layout/         # Composants de mise en page
+│   └── ui/             # Composants d'interface
+├── contexts/           # Contextes React (Auth, Game)
+├── hooks/              # Hooks personnalisés
+├── pages/              # Pages de l'application
+├── services/           # Services (API, Socket.IO)
+├── styles/             # Styles globaux
+├── types/              # Types TypeScript
+└── utils/              # Utilitaires
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎮 Fonctionnalités
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ✅ Implémentées
+- 🔐 **Authentification complète** (inscription, connexion, profil)
+- ♟️ **Échiquier interactif** avec drag & drop
+- 🌐 **Communication temps réel** via WebSocket
+- 💬 **Chat en direct** pendant les parties
+- 📊 **Informations de partie** et statistiques
+- 🎨 **Interface moderne** et responsive
+- 📱 **Design mobile-first**
 
-### `npm run eject`
+### 🚧 En développement
+- ⚡ **Pouvoirs spéciaux** (téléportation, invisibilité, échange)
+- 🤖 **Mode entraînement** contre l'IA
+- 🏆 **Système de tournois**
+- 📈 **Analyses de parties**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🎨 Design System
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Couleurs principales
+- **Primaire** : `#4f46e5` (Indigo)
+- **Secondaire** : `#7c3aed` (Violet)
+- **Accent** : `#f59e0b` (Ambre)
+- **Succès** : `#10b981` (Émeraude)
+- **Erreur** : `#ef4444` (Rouge)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Typographie
+- **Police principale** : Segoe UI, système
+- **Police monospace** : Courier New (pour les notations d'échecs)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🔧 Configuration
 
-## Learn More
+### Variables d'environnement
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Copiez `.env.example` vers `.env` et configurez :
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+# URL de l'API backend
+REACT_APP_API_URL=http://localhost:5000
+
+# Configuration optionnelle
+REACT_APP_NAME=AX Chess
+REACT_APP_VERSION=1.0.0
+PORT=3000
+```
+
+## 🧪 Tests
+
+```bash
+# Tests unitaires
+npm test
+
+# Tests avec couverture
+npm test -- --coverage
+
+# Tests en mode watch
+npm test -- --watch
+```
+
+## 📱 Responsive Design
+
+L'application est optimisée pour :
+- 📱 **Mobile** (320px+)
+- 📟 **Tablette** (768px+)
+- 💻 **Desktop** (1024px+)
+- 🖥️ **Large Desktop** (1440px+)
+
+## 🎯 Points d'entrée
+
+- `/` - Page d'accueil
+- `/login` - Authentification
+- `/game/:gameId` - Partie en cours
+- `/profile` - Profil utilisateur
+
+## 🔗 Intégration Backend
+
+Le frontend communique avec le backend via :
+- **API REST** pour les opérations CRUD
+- **WebSocket** pour le temps réel (parties, chat)
+- **Authentification JWT** avec refresh tokens
+
+## 🚀 Déploiement
+
+### Production
+
+```bash
+# Build optimisé
+npm run build
+
+# Les fichiers sont dans build/
+# Servir avec un serveur web statique
+```
+
+### Vercel (recommandé)
+
+```bash
+# Installer Vercel CLI
+npm i -g vercel
+
+# Déployer
+vercel --prod
+```
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/amazing-feature`)
+3. Commit (`git commit -m 'Add amazing feature'`)
+4. Push (`git push origin feature/amazing-feature`)
+5. Ouvrir une Pull Request
+
+## 📄 Licence
+
+MIT - Voir le fichier [LICENSE](../LICENSE) pour plus de détails.

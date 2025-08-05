@@ -1,0 +1,112 @@
+/* Styles pour les pièces d'échecs */
+.chess-piece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.chess-piece--draggable {
+  cursor: grab;
+}
+
+.chess-piece--draggable:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.chess-piece--dragging {
+  cursor: grabbing;
+  z-index: 1000;
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.piece-symbol {
+  font-size: inherit;
+  line-height: 1;
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Couleurs des pièces */
+.chess-piece--white .piece-symbol {
+  color: #ffffff;
+  text-shadow: 
+    1px 1px 0 #000000,
+    -1px -1px 0 #000000,
+    1px -1px 0 #000000,
+    -1px 1px 0 #000000,
+    0 1px 0 #000000,
+    1px 0 0 #000000,
+    0 -1px 0 #000000,
+    -1px 0 0 #000000;
+}
+
+.chess-piece--black .piece-symbol {
+  color: #2c3e50;
+  text-shadow: 
+    1px 1px 0 #ffffff,
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff;
+}
+
+/* Styles spécifiques par type de pièce */
+.chess-piece--k, /* Roi */
+.chess-piece--q { /* Dame */
+  z-index: 15; /* Plus haut pour les pièces importantes */
+}
+
+.chess-piece--p { /* Pion */
+  z-index: 5; /* Plus bas pour les pions */
+}
+
+/* Animation pour les pièces qui peuvent bouger */
+.chess-piece--draggable {
+  animation: subtlePulse 3s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Désactiver l'animation pendant le drag */
+.chess-piece--dragging {
+  animation: none;
+}
+
+/* Effet de survol pour les pièces interactives */
+.chess-piece--draggable:hover:not(.chess-piece--dragging) {
+  filter: brightness(1.2) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transform: scale(1.08);
+}
+
+/* Transition fluide pour le retour à la position normale */
+.chess-piece:not(.chess-piece--dragging) {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive - ajuster la taille des pièces sur mobile */
+@media (max-width: 768px) {
+  .chess-piece .piece-symbol {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .chess-piece .piece-symbol {
+    font-size: 0.8em;
+  }
+  
+  .chess-piece--draggable:hover {
+    transform: scale(1.03); /* Moins d'agrandissement sur mobile */
+  }
+}
