@@ -63,19 +63,19 @@ const HomePage: React.FC = () => {
             </p>
             {user && (
               <div className="user-welcome">
-                <h2>Salut, {user.username} ! 👋</h2>
+                <h2>Salut, {user?.username || 'Utilisateur'} ! 👋</h2>
                 <div className="user-stats">
                   <div className="stat-item">
                     <span className="stat-label">Niveau</span>
-                    <span className="stat-value">{user.profile.level}</span>
+                    <span className="stat-value">{user.profile?.level || 1}</span>
                   </div>
                   <div className="stat-item">
                     <span className="stat-label">Rating</span>
-                    <span className="stat-value">{user.stats.rating.rapid}</span>
+                    <span className="stat-value">{user.stats?.rating?.rapid || 1200}</span>
                   </div>
                   <div className="stat-item">
                     <span className="stat-label">Parties</span>
-                    <span className="stat-value">{user.stats.games.total}</span>
+                    <span className="stat-value">{user.stats?.games?.total || 0}</span>
                   </div>
                 </div>
               </div>

@@ -43,8 +43,8 @@ const Header: React.FC = () => {
         {isAuthenticated && user ? (
           <div className="header-user">
             <div className="user-info">
-              <span className="user-name">{user.username}</span>
-              <span className="user-rating">{user.stats.rating.rapid}</span>
+              <span className="user-name">{user?.username || 'Utilisateur'}</span>
+              <span className="user-rating">{user.stats?.rating?.rapid || 1200}</span>
             </div>
             
             <div className="user-menu">
@@ -54,7 +54,7 @@ const Header: React.FC = () => {
                 aria-label="Menu utilisateur"
               >
                 <div className="user-avatar">
-                  {user.username.charAt(0).toUpperCase()}
+                  {user?.username?.charAt(0)?.toUpperCase() || '?'}
                 </div>
               </button>
               
@@ -111,7 +111,7 @@ const Header: React.FC = () => {
                   </div>
                   <div>
                     <div className="user-name">{user?.username}</div>
-                    <div className="user-rating">Rating: {user?.stats.rating.rapid}</div>
+                    <div className="user-rating">Rating: {user?.stats?.rating?.rapid || 1200}</div>
                   </div>
                 </div>
                 

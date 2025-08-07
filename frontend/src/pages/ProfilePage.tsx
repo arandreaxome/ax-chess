@@ -16,8 +16,8 @@ const ProfilePage: React.FC = () => {
     );
   }
 
-  const winRate = user.stats.games.total > 0 ? 
-    Math.round((user.stats.games.won / user.stats.games.total) * 100) : 0;
+  const winRate = (user?.stats?.games?.total || 0) > 0 ? 
+    Math.round(((user?.stats?.games?.won || 0) / (user?.stats?.games?.total || 1)) * 100) : 0;
 
   return (
     <div className="profile-page">
@@ -25,15 +25,15 @@ const ProfilePage: React.FC = () => {
         {/* En-tête du profil */}
         <div className="profile-header">
           <div className="profile-avatar">
-            {user.username.charAt(0).toUpperCase()}
+            {user?.username?.charAt(0)?.toUpperCase() || '?'}
           </div>
           <div className="profile-info">
-            <h1>{user.username}</h1>
-            <p className="profile-email">{user.email}</p>
+            <h1>{user?.username || 'Utilisateur'}</h1>
+            <p className="profile-email">{user?.email || 'email@exemple.com'}</p>
             <div className="profile-badges">
-              <span className="badge badge--level">Niveau {user.profile.level}</span>
-              {user.profile.title && (
-                <span className="badge badge--title">{user.profile.title}</span>
+              <span className="badge badge--level">Niveau {user?.profile?.level || 1}</span>
+              {user?.profile?.title && (
+                <span className="badge badge--title">{user?.profile?.title}</span>
               )}
             </div>
           </div>
@@ -46,7 +46,7 @@ const ProfilePage: React.FC = () => {
             <div className="stat-card">
               <div className="stat-icon">🏆</div>
               <div className="stat-content">
-                <span className="stat-value">{user.stats.games.won}</span>
+                <span className="stat-value">{user?.stats?.games?.won || 0}</span>
                 <span className="stat-label">Victoires</span>
               </div>
             </div>
@@ -54,7 +54,7 @@ const ProfilePage: React.FC = () => {
             <div className="stat-card">
               <div className="stat-icon">📊</div>
               <div className="stat-content">
-                <span className="stat-value">{user.stats.games.total}</span>
+                <span className="stat-value">{user?.stats?.games?.total || 0}</span>
                 <span className="stat-label">Parties</span>
               </div>
             </div>
@@ -70,7 +70,7 @@ const ProfilePage: React.FC = () => {
             <div className="stat-card">
               <div className="stat-icon">⭐</div>
               <div className="stat-content">
-                <span className="stat-value">{user.stats.averageRating}</span>
+                <span className="stat-value">{user?.stats?.averageRating || 1200}</span>
                 <span className="stat-label">Rating moyen</span>
               </div>
             </div>
@@ -83,22 +83,22 @@ const ProfilePage: React.FC = () => {
           <div className="ratings-grid">
             <div className="rating-item">
               <span className="rating-type">⚡ Bullet</span>
-              <span className="rating-value">{user.stats.rating.bullet}</span>
+              <span className="rating-value">{user.stats?.rating?.bullet || 1200}</span>
             </div>
             
             <div className="rating-item">
               <span className="rating-type">🏃 Blitz</span>
-              <span className="rating-value">{user.stats.rating.blitz}</span>
+              <span className="rating-value">{user.stats?.rating?.blitz || 1200}</span>
             </div>
             
             <div className="rating-item">
               <span className="rating-type">🚀 Rapide</span>
-              <span className="rating-value">{user.stats.rating.rapid}</span>
+              <span className="rating-value">{user.stats?.rating?.rapid || 1200}</span>
             </div>
             
             <div className="rating-item">
               <span className="rating-type">🎯 Classique</span>
-              <span className="rating-value">{user.stats.rating.classic}</span>
+              <span className="rating-value">{user.stats?.rating?.classic || 1200}</span>
             </div>
           </div>
         </div>
@@ -110,26 +110,26 @@ const ProfilePage: React.FC = () => {
             <div className="xp-progress">
               <div className="xp-info">
                 <span>Expérience</span>
-                <span>{user.profile.experience} XP</span>
+                <span>{user?.profile?.experience || 0} XP</span>
               </div>
               <div className="xp-bar">
                 <div 
                   className="xp-fill"
                   style={{ 
-                    width: `${(user.profile.experience % 1000) / 10}%` 
+                    width: `${((user?.profile?.experience || 0) % 1000) / 10}%` 
                   }}
                 />
               </div>
               <div className="xp-level-info">
-                <span>Niveau {user.profile.level}</span>
-                <span>Prochain niveau : {1000 - (user.profile.experience % 1000)} XP</span>
+                <span>Niveau {user?.profile?.level || 1}</span>
+                <span>Prochain niveau : {1000 - ((user?.profile?.experience || 0) % 1000)} XP</span>
               </div>
             </div>
             
             <div className="coins-info">
               <div className="coins-display">
                 <span className="coins-icon">🪙</span>
-                <span className="coins-amount">{user.profile.coins}</span>
+                <span className="coins-amount">{user?.profile?.coins || 0}</span>
                 <span className="coins-label">Pièces d'or</span>
               </div>
             </div>
@@ -140,12 +140,12 @@ const ProfilePage: React.FC = () => {
         <div className="achievements-section">
           <h2>Succès</h2>
           <div className="achievements-grid">
-            {user.stats.achievements.length === 0 ? (
+            {(user?.stats?.achievements?.length || 0) === 0 ? (
               <p className="no-achievements">
                 Aucun succès débloqué pour le moment. Continuez à jouer !
               </p>
             ) : (
-              user.stats.achievements.map((achievement) => (
+              (user?.stats?.achievements || []).map((achievement) => (
                 <div key={achievement.id} className={`achievement achievement--${achievement.rarity}`}>
                   <div className="achievement-icon">{achievement.icon}</div>
                   <div className="achievement-info">
@@ -162,10 +162,10 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Informations du profil */}
-        {user.profile.bio && (
+        {user?.profile?.bio && (
           <div className="bio-section">
             <h2>À propos</h2>
-            <p className="bio-text">{user.profile.bio}</p>
+            <p className="bio-text">{user?.profile?.bio}</p>
           </div>
         )}
 
