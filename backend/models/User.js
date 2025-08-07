@@ -25,7 +25,80 @@ const UserSchema = new mongoose.Schema({
     minlength: [6, 'Le mot de passe doit contenir au moins 6 caractères']
   },
   
-  // Profil utilisateur
+
+
+  // Statistiques de jeu
+  stats: {
+    rating: {
+      bullet: {
+        type: Number,
+        default: 1200
+      },
+      blitz: {
+        type: Number,
+        default: 1200
+      },
+      rapid: {
+        type: Number,
+        default: 1200
+      },
+      classic: {
+        type: Number,
+        default: 1200
+      }
+    },
+    games: {
+      total: {
+        type: Number,
+        default: 0
+      },
+      won: {
+        type: Number,
+        default: 0
+      },
+      lost: {
+        type: Number,
+        default: 0
+      },
+      drawn: {
+        type: Number,
+        default: 0
+      }
+    },
+    winRate: {
+      type: Number,
+      default: 0
+    },
+    averageRating: {
+      type: Number,
+      default: 1200
+    },
+    achievements: [{
+      id: String,
+      name: String,
+      description: String,
+      icon: String,
+      unlockedAt: {
+        type: Date,
+        default: Date.now
+      },
+      rarity: {
+        type: String,
+        enum: ['common', 'rare', 'epic', 'legendary'],
+        default: 'common'
+      }
+    }],
+    totalPlayTime: {
+      type: Number, // en minutes
+      default: 0
+    },
+    longestGame: {
+      type: Number, // en minutes
+      default: 0
+    }
+  },
+
+  // Profil utilisateur étendu (pour correspondre aux types frontend)
   profile: {
     avatar: {
       type: String,
@@ -40,42 +113,10 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: null
     },
-    dateOfBirth: {
-      type: Date,
+    title: {
+      type: String,
       default: null
-    }
-  },
-
-  // Statistiques de jeu
-  stats: {
-    gamesPlayed: {
-      type: Number,
-      default: 0
     },
-    gamesWon: {
-      type: Number,
-      default: 0
-    },
-    gamesLost: {
-      type: Number,
-      default: 0
-    },
-    gamesDraw: {
-      type: Number,
-      default: 0
-    },
-    totalPlayTime: {
-      type: Number, // en minutes
-      default: 0
-    },
-    longestGame: {
-      type: Number, // en minutes
-      default: 0
-    }
-  },
-
-  // Système de progression
-  progression: {
     level: {
       type: Number,
       default: 1
@@ -87,6 +128,10 @@ const UserSchema = new mongoose.Schema({
     coins: {
       type: Number,
       default: 100 // Coins de départ
+    },
+    dateOfBirth: {
+      type: Date,
+      default: null
     }
   },
 
@@ -134,17 +179,26 @@ const UserSchema = new mongoose.Schema({
     }]
   },
 
-  // Préférences
+  // Préférences (selon types frontend)
   preferences: {
+    theme: {
+      type: String,
+      enum: ['light', 'dark', 'auto'],
+      default: 'auto'
+    },
+    boardTheme: {
+      type: String,
+      default: 'classic'
+    },
+    pieceSet: {
+      type: String,
+      default: 'standard'
+    },
     soundEnabled: {
       type: Boolean,
       default: true
     },
-    animationsEnabled: {
-      type: Boolean,
-      default: true
-    },
-    showCoordinates: {
+    notificationsEnabled: {
       type: Boolean,
       default: true
     },
@@ -152,9 +206,14 @@ const UserSchema = new mongoose.Schema({
       type: Boolean,
       default: false
     },
-    language: {
+    showLegalMoves: {
+      type: Boolean,
+      default: true
+    },
+    animationSpeed: {
       type: String,
-      default: 'fr'
+      enum: ['slow', 'normal', 'fast'],
+      default: 'normal'
     }
   },
 
@@ -192,12 +251,12 @@ UserSchema.index({ createdAt: -1 });
 
 // Propriétés virtuelles
 UserSchema.virtual('winRate').get(function() {
-  if (this.stats.gamesPlayed === 0) return 0;
-  return Math.round((this.stats.gamesWon / this.stats.gamesPlayed) * 100);
+  if (this.stats.games.total === 0) return 0;
+  return Math.round((this.stats.games.won / this.stats.games.total) * 100);
 });
 
-UserSchema.virtual('level').get(function() {
-  return Math.floor(this.progression.experience / 1000) + 1;
+UserSchema.virtual('lastActive').get(function() {
+  return this.lastLogin || this.createdAt;
 });
 
 // Middleware pre-save pour hasher le mot de passe
@@ -220,7 +279,8 @@ UserSchema.methods.comparePassword = async function(candidatePassword) {
 };
 
 UserSchema.methods.addExperience = function(amount) {
-  this.progression.experience += amount;
+  this.profile.experience += amount;
+  this.profile.level = Math.floor(this.profile.experience / 1000) + 1;
   return this.save();
 };
 
