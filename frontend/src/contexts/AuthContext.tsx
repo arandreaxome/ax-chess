@@ -95,8 +95,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (authService.isAuthenticated()) {
           const response = await authService.getProfile();
           
-          if (response.success && response.data) {
-            dispatch({ type: 'SET_USER', payload: response.data });
+          if (response.success && response.data && response.data.user) {
+            dispatch({ type: 'SET_USER', payload: response.data.user });
             
             // Connecter le socket avec les tokens
             const tokens = authService.getStoredTokens();
@@ -211,8 +211,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const response = await authService.getProfile();
       
-      if (response.success && response.data) {
-        dispatch({ type: 'SET_USER', payload: response.data });
+      if (response.success && response.data && response.data.user) {
+        dispatch({ type: 'SET_USER', payload: response.data.user });
       }
     } catch (error) {
       console.error('Erreur lors du rafraîchissement du profil:', error);

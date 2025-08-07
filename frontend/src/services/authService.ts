@@ -6,6 +6,7 @@ import {
   AuthTokens, 
   LoginResponse, 
   RegisterResponse,
+  ProfileResponse,
   ApiResponse 
 } from '../types/auth';
 
@@ -55,8 +56,8 @@ class AuthService {
   }
 
   // Récupérer le profil utilisateur
-  async getProfile(): Promise<ApiResponse<User>> {
-    return await apiService.get<User>('/auth/me');
+  async getProfile(): Promise<ApiResponse<ProfileResponse>> {
+    return await apiService.get<ProfileResponse>('/auth/me');
   }
 
   // Mettre à jour le profil

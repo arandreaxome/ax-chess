@@ -102,6 +102,10 @@ export interface RegisterResponse {
   message: string;
 }
 
+export interface ProfileResponse {
+  user: User;
+}
+
 export interface CreateGameResponse {
   gameId: string;
   message?: string;
